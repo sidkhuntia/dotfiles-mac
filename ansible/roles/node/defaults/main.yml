@@ -1,0 +1,7 @@
+nvm_home: "{{ user.home }}/.nvm"
+init_nvm: ". {{ nvm_home }}/nvm.sh"
+node_global_packages:
+  - yarn
+  - nodemon
+  - typescript
+  

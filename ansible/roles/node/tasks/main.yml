@@ -1,0 +1,17 @@
+---
+- name: Install nvm
+  shell: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
+  args:
+    creates: "{{ nvm_home }}/nvm.sh"
+
+- name: Install latest node version
+  shell: "{{ init_nvm }} && nvm install --lts --latest-npm"
+  register: nvm_result
+  changed_when: "'is already installed' not in nvm_result.stderr"
+
+
+- name: Install global node packages
+  shell: "{{ init_nvm }} && npm install -g {{ node_global_packages }}"
+  args:
+    creates: "{{ user.home }}/.nvm/versions/node/$(nvm current)/lib/node_modules/{{ item }}"
+  with_items: "{{ node_global_packages }}"

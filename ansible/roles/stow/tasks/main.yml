@@ -1,0 +1,6 @@
+---
+
+- name: Symlink configs
+  command: "stow -d {{ dotfiles }} -t {{user.home}} {{ item }}"
+  with_items: "{{ stow }}"
+  ignore_errors: yes
