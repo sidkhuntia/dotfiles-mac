@@ -1,16 +1,5 @@
-# Applications
-1. Arc
-2. BetterDisplay
-4. Caffeine
-9. Obsidian
-11. Raycast
-12. Shottr
-14. Telegram
-
-
 # CLI Tools
 1. aws
-
 
 ## Things to do
 

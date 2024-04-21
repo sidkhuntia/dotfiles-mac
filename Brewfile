@@ -57,3 +57,10 @@ cask "bitwarden" # password manager
 cask "spotify"
 cask "discord"
 cask "rectangle" # window manager
+cask "telegram-desktop"
+cask "shottr" # screenshot tool
+cask "raycast" # productivity tool to replace Spotlight
+cask "obsidian" # note-taking app
+cask "caffeine" # prevent Mac from sleeping
+cask "betterdisplay" # control display settings, enable HiDPI
+cask "arc" # browser 
