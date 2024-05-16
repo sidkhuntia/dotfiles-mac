@@ -15,10 +15,10 @@
 
 ## Things to do
 
-- [ ] Find some way to get ask for the version of golang to install
-- [ ] eval "$(/opt/homebrew/bin/brew shellenv)" add this some to add paths to the shell that is zsh
-- [ ] Install multiple versions of node and their respective global packages
-- [X] Use ansible to set up git with ansible encryption
 - [X] Add backupcodes for 2FA
+- [X] Use ansible to set up git with ansible encryption
 - [ ] Change the mac defaults to my liking
 - [ ] Tryout yabai and skhd
+- [ ] Find some way to get ask for the version of golang to install or install the latest golang version
+- [ ] eval "$(/opt/homebrew/bin/brew shellenv)" add this some to add paths to the shell that is zsh
+- [ ] Install multiple versions of node and their respective global packages
