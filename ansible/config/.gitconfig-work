@@ -1,0 +1,8 @@
+[user]
+	email = siddhartha.khuntia@lohum.com
+	name = Siddhartha Khuntia
+	signingkey = ~/.ssh/github-lohum.pub
+[commit]
+    gpgsign = true
+[core]
+	sshCommand = "ssh -i ~/.ssh/github-lohum"

@@ -1,0 +1,22 @@
+- name: Make sure ssh agent is running
+  shell: eval `ssh-agent -s`
+
+- name: Make Sure ssh folder exists
+  stat:
+    path: "{{ user.home }}/.ssh"
+  register: ssh_folder
+
+- name: Add ssh keys to ssh agent
+  shell: ssh-add ~/.ssh/{{ item }}
+  with_items: "{{ keys }}"
+  when: ssh_folder.stat.exists
+
+- name: Copy .gitconfig-personal to ~/Developer/personal/
+  copy:
+    src: config/.gitconfig-personal
+    dest: "{{ user.home }}/Developer/personal/"
+
+- name: Copy .gitconfig-work to ~/Developer/lohum/
+  copy:
+    src: config/.gitconfig-work
+    dest: "{{ user.home }}/Developer/lohum/"

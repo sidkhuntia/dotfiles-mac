@@ -1,0 +1,8 @@
+[user]
+	email = siddharthakhuntia@gmail.com
+	name = Siddhartha Khuntia
+	signingkey = ~/.ssh/github-personal.pub
+[commit]
+    gpgsign = true
+[core]
+	sshCommand = "ssh -i ~/.ssh/github-personal"
