@@ -112,7 +112,14 @@ alias cdlh="cd /Users/sidkhuntia/Developer/lohum"
 alias gobi="go build && go install"
 alias go9="go1.19.10"
 alias gacsm="gaa && gcsm"
-alias stowit="stow -t $HOME ."
+alias gcd="git branch -d"
+alias gcdf="git branch -D"
+alias gcdr="git push origin --delete"
+alias gfp="git fetch -p"
+alias gcemp="git commit -s -S --allow-empty -m"
+alias gpom="git push -u origin main"
+alias cat="bat"
+alias c="clear"
 # alias gcl= "git clone"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -130,7 +137,6 @@ export PATH="$PATH:/Users/sidkhuntia/Downloads/kafka_2.13-3.4.0/bin"
 export PATH=$PATH:/Users/sidkhuntia/.spicetify
 export PATH="/opt/homebrew/opt/cyrus-sasl/sbin:$PATH"
 
-
 export GOPATH="$HOME/go"
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$GOPATH/bin
@@ -138,3 +144,6 @@ export PATH=$PATH:$GOPATH/bin
 # Added by Amplify CLI binary installer
 export PATH="$HOME/.amplify/bin:$PATH"
 export PATH="/Users/sidkhuntia/.ebcli-virtual-env/executables:$PATH"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+eval "$(zoxide init --cmd cd zsh)"
