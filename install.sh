@@ -2,8 +2,8 @@
 
 set -o errexit
 
-REPO_URL=https://github.com/sidkhuntia/mac-setup.git
-REPO_PATH="$HOME/Developer/personal/mac-setup"
+REPO_URL=https://github.com/sidkhuntia/dotfiles-mac.git
+REPO_PATH="$HOME/Developer/personal/dotfiles-mac"
 
 reset_color=$(tput sgr 0)
 
