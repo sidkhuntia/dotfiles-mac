@@ -1,4 +1,12 @@
-stow:
-  - zsh
-  - git
-  
+files:
+  - .gitconfig
+  - .profile*
+  - .zshrc
+  - .zshenv
+  - .zprofile
+  - .bashrc
+  - .p10k.zsh
+folders:
+  - .ssh
+  - .aws
+stow_dir: ".dotfiles"

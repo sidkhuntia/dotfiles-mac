@@ -3,14 +3,12 @@
   roles:
     # Shell
     - { role: zsh, tags: "zsh" }
-    
+
     # Programming languages
     - { role: node, tags: "node" }
     - { role: golang, tags: "golang" }
 
-    # Editors
-    
     # Dotfiles
     - { role: stow, tags: "stow" }
-
-    # Misc
+    - { role: credentials, tags: "cred" }
+    - { role: git, tags: "git" }

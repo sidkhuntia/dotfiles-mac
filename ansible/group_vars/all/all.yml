@@ -5,3 +5,4 @@ user:
 
 github: "https://github.com/"
 dotfiles: "{{ user.home }}/.dotfiles"
+ssh_agent: true

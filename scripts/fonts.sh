@@ -1,5 +1,6 @@
 fonts=(
 	font-fira-code
+	font-meslo-lg-nerd-fontK
 )
 
 install_fonts() {

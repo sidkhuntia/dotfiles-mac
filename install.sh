@@ -78,6 +78,18 @@ info "##########################################################################
 brew install ansible
 success "Ansible installed"
 
+
+info "################################################################################"
+info "Creating development folder"
+info "################################################################################"
+mkdir -p ~/Developer
+info "Creating Personal folder"
+mkdir -p ~/Developer/personal
+info "Creating Work folder"
+mkdir -p ~/Developer/lohum
+info "################################################################################"
+
+
 info "################################################################################"
 info "Cloning .dotfiles repo from $REPO_URL into $REPO_PATH"
 info "################################################################################"
@@ -99,7 +111,7 @@ success "Brewfile installed"
 info "################################################################################"
 info "Running ansible playbook"
 info "################################################################################"
-ansible-playbook ansible/playbook.yml
+ansible-playbook --ask-vault-pass ansible/playbook.yml
 
 success "Ansible playbook executed"
 

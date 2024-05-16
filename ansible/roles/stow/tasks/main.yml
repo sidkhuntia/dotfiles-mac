@@ -1,6 +1,34 @@
----
+- name: Removing existing config files
+  file:
+    path: "{{user.home}}/{{ item }}"
+    state: absent
+  with_items:
+    - "{{ files }}"
+- name: Ensure necessary directories exist
+  file:
+    path: "{{ user.home }}/{{ item }}"
+    state: directory
+  with_items:
+    - "{{ folders }}"
 
-- name: Symlink configs
-  command: "stow -d {{ dotfiles }} -t {{user.home}} {{ item }}"
-  with_items: "{{ stow }}"
-  ignore_errors: yes
+- name: Find directories to stow
+  find:
+    paths: dotfiles
+    file_type: directory
+    depth: 1
+  register: stow_dirs
+
+- name: Prepare stow directories list
+  set_fact:
+    to_stow: "{{ stow_dirs.files | map(attribute='path') | map('basename') | join(' ') }}"
+
+- name: Stow dotfiles
+  command: stow -d dotfiles --verbose 1 --target "{{ user.home }}" --ignore='\.DS_Store' {{ to_stow }}
+
+- name: Check if wallpapers directory exists if not create it
+  file:
+    path: "{{ user.home }}/Downloads/wallpapers"
+    state: directory
+
+- name: Stow Wallpapers
+  command: stow -d . --verbose 1 --target "{{ user.home }}/Downloads/wallpapers" --ignore='\.DS_Store' wallpapers
