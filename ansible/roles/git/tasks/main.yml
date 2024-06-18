@@ -6,6 +6,13 @@
     path: "{{ user.home }}/.ssh"
   register: ssh_folder
 
+- name: Ensure SSH private keys have correct permissions
+  file:
+    path: "~/.ssh/{{ item }}"
+    mode: '0600'
+  with_items: "{{ keys }}"
+  when: ssh_folder.stat.exists
+
 - name: Add ssh keys to ssh agent
   shell: ssh-add ~/.ssh/{{ item }}
   with_items: "{{ keys }}"

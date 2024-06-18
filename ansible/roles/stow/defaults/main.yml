@@ -6,6 +6,7 @@ files:
   - .zprofile
   - .bashrc
   - .p10k.zsh
+  - .zsh_history
 folders:
   - .ssh
   - .aws

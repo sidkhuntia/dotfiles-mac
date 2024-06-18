@@ -107,8 +107,8 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias refresh="source ~/.zshrc"
-alias cddev="cd /Users/sidkhuntia/Developer/personal"
-alias cdlh="cd /Users/sidkhuntia/Developer/lohum"
+alias cddev="cd $HOME/Developer/personal"
+alias cdlh="cd $HOME/Developer/lohum"
 alias gobi="go build && go install"
 alias go9="go1.19.10"
 alias gacsm="gaa && gcsm"
@@ -120,21 +120,21 @@ alias gcemp="git commit -s -S --allow-empty -m"
 alias gpom="git push -u origin main"
 alias cat="bat"
 alias c="clear"
-# alias gcl= "git clone"
+alias gcl= "git clone"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-export PATH=/Users/sidkhuntia/.meteor:$PATH
+export PATH=$HOME/.meteor:$PATH
 export PATH="$(pwd)/bin:$PATH"
 
 
 # Created by `pipx` on 2023-05-14 06:50:23
-export PATH="$PATH:/Users/sidkhuntia/.local/bin"
-export PATH="$PATH:/Users/sidkhuntia/Downloads/kafka_2.13-3.4.0/bin"
-export PATH=$PATH:/Users/sidkhuntia/.spicetify
+export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$HOME/Downloads/kafka_2.13-3.4.0/bin"
+export PATH=$PATH:$HOME/.spicetify
 export PATH="/opt/homebrew/opt/cyrus-sasl/sbin:$PATH"
 
 export GOPATH="$HOME/go"
@@ -143,7 +143,7 @@ export PATH=$PATH:$GOPATH/bin
 
 # Added by Amplify CLI binary installer
 export PATH="$HOME/.amplify/bin:$PATH"
-export PATH="/Users/sidkhuntia/.ebcli-virtual-env/executables:$PATH"
+export PATH="$HOME/.ebcli-virtual-env/executables:$PATH"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 eval "$(zoxide init --cmd cd zsh)"

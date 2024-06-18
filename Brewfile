@@ -1,5 +1,4 @@
 tap "homebrew/bundle"
-tap "homebrew/cask-fonts"
 tap "homebrew/services"
 
 brew "ansible" # IT automation
@@ -67,4 +66,3 @@ cask "zoom"
 
 # Fonts
 cask "font-fira-code" # programming font
-cask "font-meslo-for-powerlevel10k" 

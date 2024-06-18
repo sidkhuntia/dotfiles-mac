@@ -11,7 +11,15 @@
 
 
 - name: Install global node packages
-  shell: "{{ init_nvm }} && npm install -g {{ node_global_packages }}"
+  shell: "{{ init_nvm }} && npm install -g {{ item }}"
   args:
     creates: "{{ user.home }}/.nvm/versions/node/$(nvm current)/lib/node_modules/{{ item }}"
   with_items: "{{ node_global_packages }}"
+
+
+# This task is necessary to avoid permission issues when installing global npm packages
+- name: Change ownership of .npm directory
+  shell: sudo chown -R 503:20 "{{ user.home }}/.npm"
+
+- name: Clean npm cache
+  shell: npm cache clean --force
