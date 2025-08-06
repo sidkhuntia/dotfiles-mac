@@ -12,4 +12,9 @@
     path = ~/Developer/personal/.gitconfig-personal
 
 [core]
-	excludesfile = ~/.gitignore 
+	excludesfile =~/.gitignore
+	editor = vim
+[user]
+	signingkey = ~/.ssh/github-personal.pub
+[push]
+	autoSetupRemote = true

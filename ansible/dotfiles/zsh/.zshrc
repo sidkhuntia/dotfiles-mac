@@ -1,9 +1,12 @@
+DISABLE_AUTO_UPDATE="true"
+DISABLE_MAGIC_FUNCTIONS="true"
+DISABLE_COMPFIX="true"
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+#if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+#fi
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -15,7 +18,8 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="powerlevel10k/powerlevel10k"
+# ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -77,8 +81,9 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting web-search)
-
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting) 
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE="20"
+ZSH_AUTOSUGGEST_USE_ASYNC=1
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -111,16 +116,22 @@ alias cddev="cd $HOME/Developer/personal"
 alias cdlh="cd $HOME/Developer/lohum"
 alias gobi="go build && go install"
 alias go9="go1.19.10"
-alias gacsm="gaa && gcsm"
+alias gacsm="git add . && gcsm"
 alias gcd="git branch -d"
 alias gcdf="git branch -D"
 alias gcdr="git push origin --delete"
 alias gfp="git fetch -p"
 alias gcemp="git commit -s -S --allow-empty -m"
 alias gpom="git push -u origin main"
-alias cat="bat"
 alias c="clear"
+alias cdd="builtin cd"
 alias gcl= "git clone"
+alias gco="git switch"
+alias ytbest="yt-dlp -f 'bestvideo[height<=1440][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best' -o '~/Downloads/media/yt-downloads/%(title)s.mp4' "
+alias ytmax="yt-dlp -f 'bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4] / bv*+ba/b' -o '~/Downloads/media/yt-downloads/%(title)s.mp4' "
+alias ytaudio="yt-dlp -x --audio-format mp3 --audio-quality 0 -o '~/Downloads/media/yt-downloads/%(title)s.mp3' "
+
+alias lg="lazygit"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -129,6 +140,8 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 export PATH=$HOME/.meteor:$PATH
 export PATH="$(pwd)/bin:$PATH"
+
+
 
 
 # Created by `pipx` on 2023-05-14 06:50:23
@@ -146,4 +159,115 @@ export PATH="$HOME/.amplify/bin:$PATH"
 export PATH="$HOME/.ebcli-virtual-env/executables:$PATH"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-eval "$(zoxide init --cmd cd zsh)"
+[ -z "$DISABLE_ZOXIDE" ] && eval "$(zoxide init --cmd cd zsh)"
+eval PATH="$(bash --norc -ec 'IFS=:; paths=($PATH); 
+for i in ${!paths[@]}; do 
+if [[ ${paths[i]} == "''/Users/siddhartha.khuntialohum.com/.pyenv/shims''" ]]; then unset '\''paths[i]'\''; 
+fi; done; 
+echo "${paths[*]}"')"
+export PATH="/Users/siddhartha.khuntialohum.com/.pyenv/shims:${PATH}"
+eval "$(pyenv init --path)"
+
+run_git_stash_checker() {
+    local script_path="$HOME/Developer/personal/git_stash_check.sh"
+    if [ -f "$script_path" ]; then
+        bash "$script_path"
+    fi
+}
+
+function cd() {
+    __zoxide_z "$@"
+    run_git_stash_checker
+}
+
+
+run_git_stash_checker
+
+alias shstash=run_git_stash_checker
+
+open_vscode_for_this_folder(){
+    __zoxide_z "$@"
+    code .
+}
+alias codeop=open_vscode_for_this_folder
+#alias ls="ls -al"
+eval "$(fzf --zsh)"
+
+
+# More flexible version
+function update-ems() {
+    local env=$1
+    if [[ -z "$env" ]]; then
+        echo "Usage: update-ems <environment>"
+        echo "Example: update-ems test"
+        return 1
+    fi
+    ssh ems-backend "cd /home/ubuntu/ems-servers/$env && npm run update:$env"
+}
+
+function ghrepo() {
+  local visibility="--private"
+  # parse flags
+  while [[ "$1" =~ ^- ]]; do
+    case $1 in
+      -u|--public) visibility="--public" ;;
+      -h|--help)
+        echo "Usage: ghrepo [-u|--public] <repo_name>"
+        echo "Creates a private repo by default; use -u to make it public."
+        return 0
+        ;;
+      *) 
+        echo "Unknown option: $1"
+        echo "Usage: ghrepo [-u|--public] <repo_name>"
+        return 1
+        ;;
+    esac
+    shift
+  done
+
+  local name=$1
+  if [[ -z "$name" ]]; then
+    echo "Usage: ghrepo [-u|--public] <repo_name>"
+    return 1
+  fi
+
+  gh repo create "$name" $visibility --source=. --remote=origin
+}
+
+function backup-lohum-notes(){
+	cd /Users/siddhartha.khuntialohum.com/Developer/personal/obsidianNotes 
+	aws s3 sync --delete Lohum/ s3://lohum-software-data/siddharthakhuntia_local_obsidian_notes
+}
+
+function backup-docs(){
+	cd /Users/siddhartha.khuntialohum.com/Downloads
+	aws s3 sync docs/ s3://lohum-software-data/DOCS
+}
+
+function cf(){
+  code $HOME/Developer/personal/codeforces
+}
+
+function gen-id(){
+  ./Users/siddhartha.khuntialohum.com/Developer/lohum/gen-id.sh
+}
+
+# Added by Windsurf
+export PATH="/Users/siddhartha.khuntialohum.com/.codeium/windsurf/bin:$PATH"
+
+# pnpm
+export PNPM_HOME="/Users/siddhartha.khuntialohum.com/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/siddhartha.khuntialohum.com/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/siddhartha.khuntialohum.com/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/siddhartha.khuntialohum.com/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/siddhartha.khuntialohum.com/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+
+# bun completions
+[ -s "/Users/siddhartha.khuntialohum.com/.bun/_bun" ] && source "/Users/siddhartha.khuntialohum.com/.bun/_bun"
