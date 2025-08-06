@@ -109,7 +109,7 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-# alias zshconfig="mate ~/.zshrc"
+alias zshconfig="vim ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias refresh="source ~/.zshrc"
 alias cddev="cd $HOME/Developer/personal"
@@ -185,25 +185,7 @@ run_git_stash_checker
 
 alias shstash=run_git_stash_checker
 
-open_vscode_for_this_folder(){
-    __zoxide_z "$@"
-    code .
-}
-alias codeop=open_vscode_for_this_folder
-#alias ls="ls -al"
 eval "$(fzf --zsh)"
-
-
-# More flexible version
-function update-ems() {
-    local env=$1
-    if [[ -z "$env" ]]; then
-        echo "Usage: update-ems <environment>"
-        echo "Example: update-ems test"
-        return 1
-    fi
-    ssh ems-backend "cd /home/ubuntu/ems-servers/$env && npm run update:$env"
-}
 
 function ghrepo() {
   local visibility="--private"
@@ -233,27 +215,6 @@ function ghrepo() {
 
   gh repo create "$name" $visibility --source=. --remote=origin
 }
-
-function backup-lohum-notes(){
-	cd /Users/siddhartha.khuntialohum.com/Developer/personal/obsidianNotes 
-	aws s3 sync --delete Lohum/ s3://lohum-software-data/siddharthakhuntia_local_obsidian_notes
-}
-
-function backup-docs(){
-	cd /Users/siddhartha.khuntialohum.com/Downloads
-	aws s3 sync docs/ s3://lohum-software-data/DOCS
-}
-
-function cf(){
-  code $HOME/Developer/personal/codeforces
-}
-
-function gen-id(){
-  ./Users/siddhartha.khuntialohum.com/Developer/lohum/gen-id.sh
-}
-
-# Added by Windsurf
-export PATH="/Users/siddhartha.khuntialohum.com/.codeium/windsurf/bin:$PATH"
 
 # pnpm
 export PNPM_HOME="/Users/siddhartha.khuntialohum.com/Library/pnpm"
