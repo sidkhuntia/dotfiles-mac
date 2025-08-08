@@ -1,0 +1,150 @@
+---
+# Configuration validation playbook
+# Run this to validate your setup before applying changes
+- hosts: localhost
+  gather_facts: yes
+  become: false
+  
+  vars:
+    validation_log: "{{ ansible_env.HOME }}/dotfiles-validation.log"
+  
+  tasks:
+    - name: Create validation log file
+      file:
+        path: "{{ validation_log }}"
+        state: touch
+        
+    - name: Log validation start
+      lineinfile:
+        path: "{{ validation_log }}"
+        line: "=== Dotfiles Validation Started: {{ ansible_date_time.iso8601 }} ==="
+        
+    - name: Check required directories exist
+      stat:
+        path: "{{ item }}"
+      register: required_dirs
+      with_items:
+        - "{{ ansible_env.HOME }}/Developer"
+        - "{{ ansible_env.HOME }}/Developer/personal"
+        - "{{ ansible_env.HOME }}/Developer/lohum"
+        - "{{ ansible_env.HOME }}/.ssh"
+        - "{{ ansible_env.HOME }}/.aws"
+      
+    - name: Validate directory permissions
+      file:
+        path: "{{ ansible_env.HOME }}/.ssh"
+        mode: '0700'
+        state: directory
+      check_mode: yes
+      register: ssh_permissions
+      
+    - name: Check if SSH keys exist
+      stat:
+        path: "{{ ansible_env.HOME }}/.ssh/{{ item }}"
+      register: ssh_keys
+      with_items:
+        - id_rsa
+        - id_rsa.pub
+        - github-personal
+        - github-personal.pub
+        - github-lohum
+        - github-lohum.pub
+        
+    - name: Validate SSH key permissions
+      stat:
+        path: "{{ ansible_env.HOME }}/.ssh/{{ item }}"
+      register: key_perms
+      with_items:
+        - id_rsa
+        - github-personal
+        - github-lohum
+      when: ansible_env.HOME + "/.ssh/" + item is exists
+      
+    - name: Check Git configuration
+      command: git config --global --list
+      register: git_config
+      ignore_errors: yes
+      
+    - name: Check if Oh My Zsh is installed
+      stat:
+        path: "{{ ansible_env.HOME }}/.oh-my-zsh"
+      register: omz_installed
+      
+    - name: Check if Homebrew is installed
+      command: which brew
+      register: brew_installed
+      ignore_errors: yes
+      
+    - name: Check if Node.js is installed
+      command: node --version
+      register: node_installed
+      ignore_errors: yes
+      
+    - name: Check if Go is installed
+      command: go version
+      register: go_installed
+      ignore_errors: yes
+      
+    - name: Validate Ansible inventory
+      command: ansible-inventory --list
+      register: inventory_valid
+      ignore_errors: yes
+      
+    - name: Check vault encryption
+      stat:
+        path: "{{ playbook_dir }}/credentials"
+      register: credentials_dir
+      
+    - name: Generate validation report
+      blockinfile:
+        path: "{{ validation_log }}"
+        marker: "# {mark} VALIDATION RESULTS"
+        block: |
+          
+          === SYSTEM VALIDATION RESULTS ===
+          
+          Directories:
+          {% for dir in required_dirs.results %}
+          - {{ dir.item }}: {% if dir.stat.exists %}✓ EXISTS{% else %}✗ MISSING{% endif %}
+          {% endfor %}
+          
+          SSH Configuration:
+          - SSH directory: {% if ssh_permissions is not changed %}✓ CORRECT PERMISSIONS{% else %}✗ NEEDS PERMISSION FIX{% endif %}
+          {% for key in ssh_keys.results %}
+          - {{ key.item }}: {% if key.stat.exists %}✓ EXISTS{% else %}✗ MISSING{% endif %}
+          {% endfor %}
+          
+          Development Tools:
+          - Homebrew: {% if brew_installed.rc == 0 %}✓ INSTALLED{% else %}✗ NOT INSTALLED{% endif %}
+          - Node.js: {% if node_installed.rc == 0 %}✓ INSTALLED ({{ node_installed.stdout }}){% else %}✗ NOT INSTALLED{% endif %}
+          - Go: {% if go_installed.rc == 0 %}✓ INSTALLED ({{ go_installed.stdout }}){% else %}✗ NOT INSTALLED{% endif %}
+          - Oh My Zsh: {% if omz_installed.stat.exists %}✓ INSTALLED{% else %}✗ NOT INSTALLED{% endif %}
+          
+          Git Configuration: {% if git_config.rc == 0 %}✓ CONFIGURED{% else %}✗ NOT CONFIGURED{% endif %}
+          
+          Ansible Setup:
+          - Inventory: {% if inventory_valid.rc == 0 %}✓ VALID{% else %}✗ INVALID{% endif %}
+          - Credentials: {% if credentials_dir.stat.exists %}✓ FOUND{% else %}✗ MISSING{% endif %}
+          
+          === END VALIDATION RESULTS ===
+          
+    - name: Display validation summary
+      debug:
+        msg: |
+          
+          ╔══════════════════════════════════════════════════════════════════════════════╗
+          ║                           VALIDATION COMPLETE                               ║
+          ╚══════════════════════════════════════════════════════════════════════════════╝
+          
+          Validation log saved to: {{ validation_log }}
+          
+          Next steps:
+          • Review the validation log for any issues
+          • Fix any missing dependencies or configurations
+          • Re-run validation if needed: ansible-playbook ansible/validate-config.yml
+          • Run main installation: ansible-playbook --ask-vault-pass ansible/playbook.yml
+          
+    - name: Log validation completion
+      lineinfile:
+        path: "{{ validation_log }}"
+        line: "=== Validation Completed: {{ ansible_date_time.iso8601 }} ==="
