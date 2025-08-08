@@ -1,0 +1,16 @@
+# Global gitignore
+.DS_Store
+node_modules/
+dist/
+build/
+*.log
+*.tmp
+*.swp
+*.swo
+Thumbs.db
+venv/
+.env
+.env.local
+.idea/
+.vscode/
+

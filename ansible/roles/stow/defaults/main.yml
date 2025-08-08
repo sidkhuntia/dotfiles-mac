@@ -1,5 +1,7 @@
 files:
   - .gitconfig
+  - .gitignore
+  - .vimrc
   - .profile*
   - .zshrc
   - .zshenv

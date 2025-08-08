@@ -129,8 +129,6 @@ brew "netcat"
 brew "nmap"
 # Classic snake game with textual interface
 brew "nsnake"
-# Manage multiple Node.js versions
-brew "nvm"
 # HTTP load generator, inspired by rakyll/hey with tui animation
 brew "oha"
 # Development kit for the Java programming language

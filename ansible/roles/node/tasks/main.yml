@@ -9,17 +9,24 @@
   register: nvm_result
   changed_when: "'is already installed' not in nvm_result.stderr"
 
+- name: Set default Node.js to latest LTS
+  shell: "{{ init_nvm }} && nvm alias default lts/* && nvm use default"
 
-- name: Install global node packages
-  shell: "{{ init_nvm }} && npm install -g {{ item }}"
+- name: Gather current Node.js version
+  shell: "{{ init_nvm }} && nvm current"
+  register: nvm_current
+
+- name: Ensure global node packages are installed
+  shell: |
+    {{ init_nvm }} && \
+    npm install -g {{ (item.install | default(item.name)) }}
   args:
-    creates: "{{ user.home }}/.nvm/versions/node/$(nvm current)/lib/node_modules/{{ item }}"
+    creates: "{{ user.home }}/.nvm/versions/node/{{ nvm_current.stdout }}/lib/node_modules/{{ item.name }}"
   with_items: "{{ node_global_packages }}"
-
 
 # This task is necessary to avoid permission issues when installing global npm packages
 - name: Change ownership of .npm directory
-  shell: sudo chown -R 503:20 "{{ user.home }}/.npm"
+  shell: sudo chown -R {{ user.name }}:staff "{{ user.home }}/.npm"
 
 - name: Clean npm cache
-  shell: npm cache clean --force
+  shell: "{{ init_nvm }} && npm cache clean --force"

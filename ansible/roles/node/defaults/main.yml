@@ -1,7 +1,14 @@
 nvm_home: "{{ user.home }}/.nvm"
 init_nvm: ". {{ nvm_home }}/nvm.sh"
+
+# Global npm packages to install. For GitHub sources, set "install" to the slug.
+# "name" is used for idempotency checks (npm -g ls). "install" is used for install target.
 node_global_packages:
-  - yarn
-  - nodemon
-  - typescript
-  
+  - { name: corepack }
+  - { name: npm }
+  - { name: yarn }
+  - { name: nodemon }
+  - { name: typescript }
+  - { name: claude-code, install: "anthropic-ai/claude-code" }
+  - { name: gemini-cli, install: "google/gemini-cli" }
+  - { name: ccusage }

@@ -6,7 +6,7 @@
 
     # Programming languages
     - { role: node, tags: "node" }
-    - { role: golang, tags: "golang" }
+    # Go is installed and kept updated via Homebrew (brew "go"), so skip Ansible golang role to avoid duplication
 
     # Dotfiles
     - { role: stow, tags: "stow" }

@@ -16,6 +16,7 @@
     paths: dotfiles
     file_type: directory
     depth: 1
+    patterns: "*"
   register: stow_dirs
 
 - name: Prepare stow directories list
@@ -24,6 +25,10 @@
 
 - name: Stow dotfiles
   command: stow -d dotfiles --verbose 1 --target "{{ user.home }}" --ignore='\.DS_Store' {{ to_stow }}
+  args:
+    chdir: "{{ playbook_dir }}"
+  environment:
+    STOW_DIR: "{{ playbook_dir }}/dotfiles"
 
 - name: Check if wallpapers directory exists if not create it
   file:
@@ -32,6 +37,10 @@
 
 - name: Stow Wallpapers
   command: stow -d . --verbose 1 --target "{{ user.home }}/Downloads/wallpapers" --ignore='\.DS_Store' wallpapers
+  args:
+    chdir: "{{ playbook_dir }}"
 
 - name: Stow fonts
   command: stow -d . --verbose 1 --target "{{ user.home }}/Library/fonts" --ignore='\.DS_Store' fonts
+  args:
+    chdir: "{{ playbook_dir }}"

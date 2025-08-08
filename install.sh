@@ -245,35 +245,7 @@ main() {
 	install_xcode || return 1
 	install_homebrew || return 1
 
-	info "################################################################################"
-	info "Installing Git"
-	info "################################################################################"
-	if ! brew install git; then
-		err "Failed to install Git"
-		return 1
-	fi
-	
-	# Verify Git installation
-	if ! git --version >/dev/null 2>&1; then
-		err "Git installation verification failed"
-		return 1
-	fi
-	success "Git installed successfully"
-	
-	info "################################################################################"
-	info "Installing Ansible"
-	info "################################################################################"
-	if ! brew install ansible; then
-		err "Failed to install Ansible"
-		return 1
-	fi
-	
-	# Verify Ansible installation
-	if ! ansible --version >/dev/null 2>&1; then
-		err "Ansible installation verification failed"
-		return 1
-	fi
-	success "Ansible installed successfully"
+    # Git is provided by Xcode Command Line Tools; Ansible will be installed via Brewfile
 	
 	info "################################################################################"
 	info "Creating development directories"
