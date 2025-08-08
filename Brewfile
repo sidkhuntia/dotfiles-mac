@@ -213,10 +213,18 @@ cask "iina"
 cask "lunar"
 # Knowledge base that works on top of a local folder of plain text Markdown files
 cask "obsidian"
+  # All-in-one workspace
+  cask "notion-mail"
+  # API Client
+  cask "bruno"
+  # DIA Browser
+  cask "thebrowsercompany-dia"
 # Control your tools with a few keystrokes
 cask "raycast"
 # Tool that provides consistent, highly configurable symbols for apps
 cask "sf-symbols"
+  # AI-powered code editor
+  cask "cursor"
 # Screenshot measurement and annotation tool
 cask "shottr"
 # Music streaming service

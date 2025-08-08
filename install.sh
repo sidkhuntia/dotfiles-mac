@@ -320,6 +320,20 @@ main() {
 		err "You can retry with: cd $REPO_PATH && ansible-playbook --ask-vault-pass ansible/playbook.yml"
 		return 1
 	fi
+
+  # Post-install extras that require special flags
+  info "Installing NearDrop with no-quarantine flag"
+  if ! brew list --cask neardrop >/dev/null 2>&1; then
+    # ensure tap exists before install
+    brew tap grishka/grishka >/dev/null 2>&1 || true
+    if ! brew install --cask --no-quarantine grishka/grishka/neardrop; then
+      warn "NearDrop installation failed. You can manually run: brew install --cask --no-quarantine grishka/grishka/neardrop"
+    else
+      success "NearDrop installed"
+    fi
+  else
+    warn "NearDrop already installed"
+  fi
 	
 	success "Development environment configured successfully"
 	
