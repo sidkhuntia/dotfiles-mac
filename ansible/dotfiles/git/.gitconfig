@@ -5,9 +5,6 @@
 [commit]
 	gpgsign = true
 
-[includeIf "gitdir:~/Developer/lohum/"]
-    path = ~/Developer/lohum/.gitconfig-work
-
 [includeIf "gitdir:~/Developer/personal/"]
     path = ~/Developer/personal/.gitconfig-personal
 

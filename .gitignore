@@ -1,2 +1,3 @@
 *.DS_STORE
 defaults_list.txt
+ansible_vault_pass

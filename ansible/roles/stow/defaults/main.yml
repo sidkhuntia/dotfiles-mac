@@ -12,4 +12,8 @@ files:
 folders:
   - .ssh
   - .aws
+  - .config
+  - .config/nvim
+  - .config/aerospace
+  - .config/goreleaser
 stow_dir: ".dotfiles"
