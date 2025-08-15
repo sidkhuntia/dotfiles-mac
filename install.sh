@@ -288,7 +288,7 @@ main() {
 		return 1
 	fi
 	
-	if ! brew bundle install --no-lock; then
+	if ! brew bundle install; then
 		err "Failed to install Brewfile packages"
 		err "Some packages may have failed - check the output above"
 		warn "You can retry with: cd $REPO_PATH && brew bundle install"

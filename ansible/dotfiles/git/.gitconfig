@@ -8,6 +8,9 @@
 [includeIf "gitdir:~/Developer/personal/"]
     path = ~/Developer/personal/.gitconfig-personal
 
+[includeIf "gitdir:~/Developer/lohum/"]
+    path = ~/Developer/lohum/.gitconfig-work
+
 [core]
 	excludesfile =~/.gitignore
 	editor = vim
