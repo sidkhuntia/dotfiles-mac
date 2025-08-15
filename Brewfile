@@ -4,8 +4,6 @@ tap "emqx/mqttx"
 tap "felixkratz/formulae"
 tap "golangci/tap"
 tap "goreleaser/tap"
-tap "homebrew/bundle"
-tap "homebrew/services"
 tap "jesseduffield/lazygit"
 tap "mac-cleanup/mac-cleanup-py"
 tap "mongodb/brew"
@@ -163,9 +161,6 @@ brew "tree"
 brew "webpack"
 # Internet file retriever
 brew "wget"
-# Download YouTube videos from the command-line
-brew "youtube-dl"
-# Feature-rich command-line audio/video downloader
 brew "yt-dlp"
 # Shell extension to navigate your filesystem faster
 brew "zoxide"
@@ -179,10 +174,6 @@ brew "dotenvx/brew/dotenvx"
 brew "golangci/tap/golangci-lint"
 # Unified clipboard tool for macOS - a superset of pbcopy
 brew "neilberkman/clippy/clippy"
-# Localias is a tool for developers to securely manage local aliases for development servers.
-brew "peterldowns/tap/localias"
-# Supabase CLI
-brew "supabase/tap/supabase"
 # AeroSpace is an i3-like tiling window manager for macOS
 cask "aerospace"
 # Chromium based browser
@@ -193,8 +184,7 @@ cask "betterdisplay"
 cask "bitwarden"
 # Open source IDE for exploring and testing APIs
 cask "bruno"
-# Utility that prevents the system from going to sleep
-cask "caffeine"
+
 # Automated testing of webapps for Google Chrome
 cask "chromedriver"
 # Voice and text chat software
@@ -203,7 +193,6 @@ cask "discord"
 cask "firefox"
 cask "font-fira-code"
 cask "font-hack-nerd-font"
-cask "font-meslo-for-powerlevel10k"
 cask "font-sf-pro"
 # Utility to hide menu bar items
 cask "hiddenbar"
@@ -213,18 +202,16 @@ cask "iina"
 cask "lunar"
 # Knowledge base that works on top of a local folder of plain text Markdown files
 cask "obsidian"
-  # All-in-one workspace
-  cask "notion-mail"
-  # API Client
-  cask "bruno"
-  # DIA Browser
-  cask "thebrowsercompany-dia"
+# API Client
+cask "bruno"
+# DIA Browser
+cask "thebrowsercompany-dia"
 # Control your tools with a few keystrokes
 cask "raycast"
 # Tool that provides consistent, highly configurable symbols for apps
 cask "sf-symbols"
-  # AI-powered code editor
-  cask "cursor"
+# AI-powered code editor
+cask "cursor"
 # Screenshot measurement and annotation tool
 cask "shottr"
 # Music streaming service
@@ -247,50 +234,3 @@ cask "warp"
 cask "whatsapp"
 # Video communication and virtual meeting platform
 cask "zoom"
-mas "Keynote", id: 409183694
-mas "Numbers", id: 409203825
-mas "Pages", id: 409201541
-mas "WhatsApp", id: 310633997
-mas "Xcode", id: 497799835
-vscode "andenetalexander.vim-cheatsheet"
-vscode "bierner.markdown-mermaid"
-vscode "bradlc.vscode-tailwindcss"
-vscode "dbaeumer.vscode-eslint"
-vscode "docker.docker"
-vscode "eamodio.gitlens"
-vscode "esbenp.prettier-vscode"
-vscode "formulahendry.auto-rename-tag"
-vscode "formulahendry.code-runner"
-vscode "github.copilot"
-vscode "github.copilot-chat"
-vscode "github.github-vscode-theme"
-vscode "golang.go"
-vscode "jakob101.relativepath"
-vscode "jdinhlife.gruvbox"
-vscode "kevinrose.vsc-python-indent"
-vscode "mechatroner.rainbow-csv"
-vscode "mgmcdermott.vscode-language-babel"
-vscode "ms-azuretools.vscode-containers"
-vscode "ms-azuretools.vscode-docker"
-vscode "ms-python.debugpy"
-vscode "ms-python.pylint"
-vscode "ms-python.python"
-vscode "ms-python.vscode-pylance"
-vscode "ms-vscode-remote.remote-containers"
-vscode "ms-vscode.cpptools"
-vscode "ms-vscode.cpptools-extension-pack"
-vscode "ms-vscode.cpptools-themes"
-vscode "msyrus.go-doc"
-vscode "prisma.prisma"
-vscode "rangav.vscode-thunder-client"
-vscode "redhat.vscode-yaml"
-vscode "redis.redis-for-vscode"
-vscode "ritwickdey.liveserver"
-vscode "rust-lang.rust-analyzer"
-vscode "simonsiefke.svg-preview"
-vscode "thiscodeworks.savecode"
-vscode "timonwong.shellcheck"
-vscode "vintharas.learn-vim"
-vscode "vscodevim.vim"
-vscode "wayou.vscode-todo-highlight"
-vscode "yoavbls.pretty-ts-errors"

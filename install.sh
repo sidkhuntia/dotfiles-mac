@@ -105,7 +105,7 @@ install_homebrew() {
 	
 	# Download and verify installer
 	local installer_url="https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
-	if ! curl -fsSL "$installer_url" | head -1 | grep -q "^#!/bin/bash"; then
+	if ! /bin/bash -c "curl -fsSL '$installer_url' | head -1 | grep -q '^#!/bin/bash'"; then
 		err "Failed to download or verify Homebrew installer"
 		return 1
 	fi
