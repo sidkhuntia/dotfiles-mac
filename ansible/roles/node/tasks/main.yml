@@ -17,9 +17,7 @@
   register: nvm_current
 
 - name: Ensure global node packages are installed
-  shell: |
-    {{ init_nvm }} && \
-    npm install -g {{ (item.install | default(item.name)) }}
+  shell: npm install -g {{ (item.install | default(item.name)) }}
   args:
     creates: "{{ user.home }}/.nvm/versions/node/{{ nvm_current.stdout }}/lib/node_modules/{{ item.name }}"
   with_items: "{{ node_global_packages }}"
@@ -29,4 +27,4 @@
   shell: sudo chown -R {{ user.name }}:staff "{{ user.home }}/.npm"
 
 - name: Clean npm cache
-  shell: "{{ init_nvm }} && npm cache clean --force"
+  shell: npm cache clean --force
