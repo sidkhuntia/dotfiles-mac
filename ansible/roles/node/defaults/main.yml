@@ -9,6 +9,6 @@ node_global_packages:
   - { name: yarn }
   - { name: nodemon }
   - { name: typescript }
-  - { name: claude-code, install: "anthropic-ai/claude-code" }
-  - { name: gemini-cli, install: "google/gemini-cli" }
+  - { name: claude-code, install: "@anthropic-ai/claude-code" }
+  - { name: gemini-cli, install: "@google/gemini-cli" }
   - { name: ccusage }
