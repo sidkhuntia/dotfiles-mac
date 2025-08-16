@@ -1,9 +1,10 @@
-- name: Removing existing config files
+- name: Remove existing config files and folders
   file:
-    path: "{{user.home}}/{{ item }}"
+    path: "{{ user.home }}/{{ item }}"
     state: absent
-  with_items:
-    - "{{ files }}"
+    force: true
+  with_items: "{{ files + folders }}"
+  ignore_errors: true
 - name: Ensure necessary directories exist
   file:
     path: "{{ user.home }}/{{ item }}"
