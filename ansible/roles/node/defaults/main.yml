@@ -6,7 +6,8 @@ init_nvm: ". {{ nvm_home }}/nvm.sh"
 node_global_packages:
   - { name: corepack }
   - { name: npm }
-  - { name: yarn }
+  # TODO: could not install yarn with npm install -g yarn
+  # - { name: yarn }
   - { name: nodemon }
   - { name: typescript }
   - { name: claude-code, install: "@anthropic-ai/claude-code" }
